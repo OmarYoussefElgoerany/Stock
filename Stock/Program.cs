@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using StockDAL;
+
 namespace Stock
 {
     public class Program
@@ -8,6 +11,10 @@ namespace Stock
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            var connectionString = builder.Configuration.GetConnectionString("Stock");
+             builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
