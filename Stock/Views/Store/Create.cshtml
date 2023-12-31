@@ -1,0 +1,26 @@
+﻿@model StoreDto
+@{
+    ViewData["Title"] = "Add Store";
+}
+
+
+<div class="container mt-3">
+  <h2>Add Store</h2>
+  <form asp-controller="Store" asp-action="Create" method="post">
+    <div class="mb-3 mt-3">
+      <label class="fw-bold" asp-for="Name"></label>
+      <input asp-for="Name" class="form-control"  placeholder="Enter Store Name">
+      <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+      <label asp-for="Address">Address:</label>
+      <input asp-for="Address" class="form-control" placeholder="Enter Store Address">
+      <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+@section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+}

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stock.Models;
+using StockBLL.Managers.ItemManager;
+using StockBLL.Managers.StoreManager;
 using System.Diagnostics;
 
 namespace Stock.Controllers
@@ -7,14 +9,23 @@ namespace Stock.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IItemManager itemManager;
+        private readonly IStoreManager storeManager;
+ 
+        public HomeController(ILogger<HomeController> logger,
+            IStoreManager storeManager,
+            IItemManager itemManager)
         {
             _logger = logger;
+            this.itemManager = itemManager;
+            this.storeManager = storeManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var stores = storeManager.GetAllStoreDto();
+
+            return View(stores);
         }
 
         public IActionResult Privacy()

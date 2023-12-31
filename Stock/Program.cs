@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using StockBLL.Managers.ItemManager;
+using StockBLL.Managers.StoreManager;
 using StockDAL;
 using StockDAL.Data.Models;
 using StockDAL.Repos.ItemRepo;
@@ -20,6 +22,11 @@ namespace Stock
             var connectionString = builder.Configuration.GetConnectionString("Stock");
             builder.Services.AddDbContext<AppDbContext>(options =>
                options.UseSqlServer(connectionString));
+            #endregion
+
+            #region Managers
+            builder.Services.AddScoped<IItemManager, ItemManager>();
+            builder.Services.AddScoped<IStoreManager, StoreManager>();
             #endregion
 
             #region Repos
