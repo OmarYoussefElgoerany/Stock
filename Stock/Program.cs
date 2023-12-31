@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using StockDAL;
+using StockDAL.Repos.ItemRepo;
+using StockDAL.Repos.StoreRepo;
+using StockDAL.UnitOfWork;
 
 namespace Stock
 {
@@ -12,9 +15,20 @@ namespace Stock
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            #region DataBase
             var connectionString = builder.Configuration.GetConnectionString("Stock");
-             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<AppDbContext>(options =>
+               options.UseSqlServer(connectionString));
+            #endregion
+
+            #region Repos
+            builder.Services.AddScoped<IStoreRepo, StoreRepo>();
+            builder.Services.AddScoped<IItemRepo,ItemRepo>();
+            #endregion
+
+            #region UnitOfWork
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            #endregion
 
             var app = builder.Build();
 

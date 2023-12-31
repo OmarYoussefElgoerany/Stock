@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StockDAL\StockDAL.csproj" />
+    <ProjectReference Include="..\StockBLL\StockBLL.csproj" />
   </ItemGroup>
 
 </Project>
