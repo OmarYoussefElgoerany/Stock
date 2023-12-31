@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StockDAL;
+using StockDAL.Data.Models;
 using StockDAL.Repos.ItemRepo;
 using StockDAL.Repos.StoreRepo;
 using StockDAL.UnitOfWork;

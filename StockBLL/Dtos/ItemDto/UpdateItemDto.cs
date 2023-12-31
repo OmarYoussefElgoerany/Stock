@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockBLL.Dtos.StoreDto
+namespace StockBLL.Dtos.ItemDto
 {
-    public class UpdateStoreDto
+    public class UpdateItemDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string? Address { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
     }
 }
