@@ -1,5 +1,5 @@
 ﻿using StockBLL.Dtos.ItemDto;
-using StockBLL.Dtos.StoreDto;
+using StockBLL;
 using StockDAL;
 using StockDAL.Data.Models;
 using System;
@@ -12,14 +12,14 @@ namespace StockBLL.Mapping
 {
     public static class MappingItemDto
     {
-        public static Item FromItemDtoToItem(ItemDto itemDto)
+        public static Item FromItemDtoToItem(AddItemDto itemDto)
         {
             Item item = new Item();
 
             item.Name= itemDto.Name;
             item.Price= itemDto.Price;
             item.Quantity = itemDto.Quantity;
-
+            item.StoreId = itemDto.StoreId;
             return item;
         }
         public static Item FromUpdatedDtotoItem(UpdateItemDto updatedItemDto)
@@ -30,6 +30,7 @@ namespace StockBLL.Mapping
             item.Name = updatedItemDto.Name;
             item.Price = updatedItemDto.Price;
             item.Quantity = updatedItemDto.Quantity;
+            item.StoreId = updatedItemDto.StoreId;
 
             return item;
         }

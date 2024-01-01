@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StockBLL.Dtos.StoreDto
+namespace StockBLL
 {
     public class AddStoreDto
     {

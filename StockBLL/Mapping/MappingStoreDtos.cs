@@ -1,5 +1,4 @@
 ﻿using StockBLL.Dtos.ItemDto;
-using StockBLL.Dtos.StoreDto;
 using StockDAL;
 using System;
 using System.Collections.Generic;

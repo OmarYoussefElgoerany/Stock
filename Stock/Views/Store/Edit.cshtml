@@ -7,11 +7,10 @@
 <h2>Edit Store Information</h2>
 
 <div class="container mt-3">
-  <h2>Add Store</h2>
   <form asp-controller="Store" asp-action="Edit" method="put">
     <div class="mb-3 mt-3">
       <label class="fw-bold" asp-for="Name"></label>
-      <input asp-for="Name" class="form-control" value="@Model.Name;" placeholder="Enter Store Name">
+      <input asp-for="Name" class="form-control" value="@Model.Name" placeholder="Enter Store Name">
       <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3">

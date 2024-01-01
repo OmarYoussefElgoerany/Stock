@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockBLL.Dtos.ItemDto
+namespace StockBLL
 {
-    public class UpdateItemDto
+    public class AddItemDto
     {
-        public int Id { get; set; }
         [Required]
         [MinLength(2, ErrorMessage = "The field Name minimum length '2'")]
         [MaxLength(50, ErrorMessage = "The field Name maximum length '50'")]
@@ -19,7 +18,5 @@ namespace StockBLL.Dtos.ItemDto
         [Required]
         public int Quantity { get; set; }
         public int StoreId { get; set; }
-
-
     }
 }

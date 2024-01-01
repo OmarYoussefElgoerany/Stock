@@ -1,6 +1,5 @@
 ﻿using StockBLL.Dtos;
 using StockBLL.Dtos.ItemDto;
-using StockBLL.Dtos.StoreDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace StockBLL.Managers.StoreManager
 
         List<ReadStoreWithItemsDto> GetAllStoreDtoWithItems();
         StoreDto GetStoreDtoById(int id);
-
+        ReadStoreWithItemsDto GetStoreIdWithAllItems(int id);
         ReadStoreWithItemsDto GetReadStoreDtoWithItemsById(int id);
         int AddStoreDto(AddStoreDto storeDto);
 

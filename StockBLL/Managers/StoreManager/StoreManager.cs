@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using StockBLL.Dtos;
 using StockBLL.Dtos.ItemDto;
-using StockBLL.Dtos.StoreDto;
+using StockBLL;
 using StockBLL.Mapping;
 using StockDAL.UnitOfWork;
 using System;
@@ -111,8 +111,8 @@ namespace StockBLL.Managers.StoreManager
 
             var updatedStore = MappingStoreDtos.FromUpdatedDtotoStore(updateStoreDto);
 
-            var store = unitOfWork.StoreRepo.Update(updatedStore);
-
+            unitOfWork.StoreRepo.Update(updatedStore);
+            
             unitOfWork.SaveChanges();
 
             return true;
@@ -133,5 +133,25 @@ namespace StockBLL.Managers.StoreManager
             return true;
         }
 
+        public ReadStoreWithItemsDto GetStoreIdWithAllItems(int id)
+        {
+            var getStores = unitOfWork.StoreRepo.GetStoresIncludeAllItems();
+            var store = getStores.FirstOrDefault(i => i.Id==id);
+            if (store == null)
+                return new ReadStoreWithItemsDto();
+
+            return new ReadStoreWithItemsDto
+            {
+                Name = store.Name,
+                Address = store.Address,
+                Items = store.Items.Select(i => new ItemDto
+                {
+                    Id = i.Id,
+                    Price = i.Price,
+                    Quantity = i.Quantity,
+                    Name = i.Name,
+                }).ToList()
+            };
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockBLL;
-using StockBLL.Dtos.StoreDto;
 using StockBLL.Managers.ItemManager;
 using StockBLL.Managers.StoreManager;
 
@@ -48,7 +47,7 @@ namespace Stock.Controllers
             var store = storeManager.GetStoreDtoById(id);
             return View(store);
         }
-        [HttpPut]
+        [HttpPost]
         public IActionResult Edit(UpdateStoreDto updateStoreDto)
         {
             if (!ModelState.IsValid)
@@ -62,7 +61,6 @@ namespace Stock.Controllers
         public IActionResult Delete(int id)
         {
             var store = storeManager.GetStoreDtoById(id);
-            var s = store.Id;
             return View(store);
         }
         [HttpPost]
@@ -75,5 +73,6 @@ namespace Stock.Controllers
                 return View();
             return RedirectToAction("Index", "Home");
         }
+     
     }
 }

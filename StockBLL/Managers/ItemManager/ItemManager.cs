@@ -1,4 +1,5 @@
 ﻿using StockBLL.Dtos.ItemDto;
+using StockBLL.Managers.ItemManager;
 using StockBLL.Mapping;
 using StockBLL.ViewModel;
 using StockDAL.UnitOfWork;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockBLL.Managers.ItemManager
+namespace StockBLL
 {
     public class ItemManager : IItemManager
     {
@@ -49,7 +50,7 @@ namespace StockBLL.Managers.ItemManager
             };
         }
 
-        public int AddItemDto(ItemDto itemDto)
+        public int AddItemDto(AddItemDto itemDto)
         {
             if(itemDto==null)
                 return 0 ;
@@ -71,7 +72,7 @@ namespace StockBLL.Managers.ItemManager
 
             var updatedItem = MappingItemDto.FromUpdatedDtotoItem(updateItemDto);
 
-            unitOfWork.ItemRepo.Update(updatedItem);
+             unitOfWork.ItemRepo.Update(updatedItem);
 
             unitOfWork.SaveChanges();
             return true;
@@ -105,6 +106,21 @@ namespace StockBLL.Managers.ItemManager
             unitOfWork.ItemRepo.Update(getItem);
             unitOfWork.SaveChanges();
             return true;
+        }
+
+        public ItemDto GetItemDtoByStoreId(int id)
+        {
+            var items = unitOfWork.ItemRepo.GetAll();
+            var getItemByStore=items.FirstOrDefault(i=>i.StoreId==id);
+            if (getItemByStore == null)
+                return new ItemDto();
+            return new ItemDto
+            {
+                Id = getItemByStore.Id,
+                Name = getItemByStore.Name,
+                Price = getItemByStore.Price,
+                Quantity = getItemByStore.Quantity
+            };
         }
     }
 }

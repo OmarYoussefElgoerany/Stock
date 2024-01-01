@@ -8,14 +8,14 @@
 </div>
 
 <div class="container mt-3">
-  <h2>Stores</h2>
-  <p>The .table-bordered class adds borders on all sides of the table and the cells:</p>            
+  <h2 class="m-3">Stores</h2>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Store</th>
         <th>Store Address</th>
         <th>Store Detials</th>
+        <th>Items Details</th>
         <th>Edit Store</th>
         <th>Delete Store</th>
       </tr>
@@ -26,19 +26,16 @@
                <tr>
                 <td>@item.Name</td>
                 <td>@item.Address</td>
-                    <td><a class="btn btn-primary" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id">Details</a></td>
-                <td class="text-center"><a class="btn btn-primary" asp-controller="Store" asp-action="Edit" asp-route-id="@item.Id">Edit</a></td>
+                <td class="text-center"><a class="btn btn-outline-primary text-center" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id">Details</a></td>
+                <td class="text-center"><a class="btn btn-outline-primary" asp-controller="Item" asp-action="Details" asp-route-id="@item.Id">@item.Name Items</a></td>
+                <td class="text-center"><a class="btn btn-outline-primary" asp-controller="Store" asp-action="Edit" asp-route-id="@item.Id">Edit</a></td>
                 <td class="text-center"><a asp-controller="Store" asp-action="Delete" asp-route-id="@item.Id"
-                onclick="return confirm('Are you sure ?')" class="btn btn-primary">Delete</a> </td>
+                    onclick="return confirm('Are you sure ?')" class="btn btn-outline-primary">Delete</a> </td>
               </tr>
             }
     </tbody>       
   </table>
-    <div class="d-flex justify-content-around">
-        <div>
-            <a href="#" class="btn btn-primary" >Go To Items</a>
-            </div>
-        <div>
+    <div class="d-flex justify-content-center">
             <a class="btn btn-primary" asp-controller="Store" asp-action="Create">Add Store</a>
         </div>
     </div>

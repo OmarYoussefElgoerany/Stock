@@ -1,4 +1,4 @@
-﻿using StockDAL.Repos.ItemRepo;
+﻿using StockDAL;
 using StockDAL.Repos.StoreRepo;
 using System;
 using System.Collections.Generic;

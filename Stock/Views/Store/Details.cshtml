@@ -29,14 +29,17 @@
     </div>
     <div>
        <label>Quantity:</label>
-      <input oninput="calcBalance()" name="Quantity" class="form-control" type="number"  id="inputQuantity" >
+      <input oninput="calcBalance()" name="Quantity" type="number" class="form-control" type="number"  id="inputQuantity" >
     </div>
     <div>
        <label>Balance:</label>
       <input readonly  class="form-control" type="number"  id="balance" >
     </div>
+    <div class="m-3">
      <button type="submit" class="btn btn-primary">Save</button>
     <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
+    </div>
+   
 
   </form>
 </div>

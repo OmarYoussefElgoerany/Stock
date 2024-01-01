@@ -9,7 +9,7 @@
   <form asp-controller="Store" asp-action="Create" method="post">
     <div class="mb-3 mt-3">
       <label class="fw-bold" asp-for="Name"></label>
-      <input asp-for="Name" class="form-control"  placeholder="Enter Store Name">
+      <input asp-for="Name" id="name" onblur="handleFocusLoss()"  class="form-control"  placeholder="Enter Store Name">
       <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
@@ -23,5 +23,22 @@
 </div>
 
 @section Scripts{
+    <script>
+             function handleFocusLoss() {
+                      let name = document.getElementById("name").value;
+                          $.ajax({
+                            url: "/Item/GetItems",
+                            data: { "Id": Id }, 
+                            success: function(result) {
+                            let inputField = document.getElementById("inputQuantity");
+                            let inputPrice = document.getElementById("price");
+                            inputField.value = result.quantity;
+                            inputPrice.value = result.price;
+
+                       }
+                       });
+                 }
+    </script>
+           
         <partial name="_ValidationScriptsPartial" />
 }

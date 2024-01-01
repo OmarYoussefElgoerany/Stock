@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using StockBLL;
 using StockBLL.Managers.ItemManager;
 using StockBLL.Managers.StoreManager;
 using StockDAL;
 using StockDAL.Data.Models;
-using StockDAL.Repos.ItemRepo;
 using StockDAL.Repos.StoreRepo;
 using StockDAL.UnitOfWork;
 
