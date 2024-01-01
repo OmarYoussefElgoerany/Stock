@@ -22,6 +22,7 @@ namespace StockDAL.UnitOfWork
             this.StoreRepo= storeRepo;
             this.ItemRepo= itemRepo;
         }
+
         public int SaveChanges() => appDbContext.SaveChanges();
     }
 }

@@ -1,20 +1,22 @@
 ﻿@model StoreDto
+
 @{
-    ViewData["Title"] = "Add Store";
+    ViewData["Title"] = "Edit";
 }
 
+<h2>Edit Store Information</h2>
 
 <div class="container mt-3">
   <h2>Add Store</h2>
-  <form asp-controller="Store" asp-action="Create" method="post">
+  <form asp-controller="Store" asp-action="Edit" method="put">
     <div class="mb-3 mt-3">
       <label class="fw-bold" asp-for="Name"></label>
-      <input asp-for="Name" class="form-control"  placeholder="Enter Store Name">
+      <input asp-for="Name" class="form-control" value="@Model.Name;" placeholder="Enter Store Name">
       <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
       <label asp-for="Address">Address:</label>
-      <input asp-for="Address" class="form-control" placeholder="Enter Store Address">
+      <input asp-for="Address" class="form-control" value="@Model.Address" placeholder="Enter Store Address">
       <span asp-validation-for="Address" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -23,5 +25,5 @@
 </div>
 
 @section Scripts{
-        <partial name="_ValidationScriptsPartial" />
+            <partial name="_ValidationScriptsPartial" />
 }

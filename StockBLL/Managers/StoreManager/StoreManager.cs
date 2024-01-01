@@ -39,7 +39,7 @@ namespace StockBLL.Managers.StoreManager
 
         public List<ReadStoreWithItemsDto> GetAllStoreDtoWithItems()
         {
-            var allStores = unitOfWork.StoreRepo.GetAll();
+            var allStores = unitOfWork.StoreRepo.GetStoresIncludeAllItems();
 
             if (allStores == null)
                 return new List<ReadStoreWithItemsDto>();
@@ -50,6 +50,7 @@ namespace StockBLL.Managers.StoreManager
                 Name = i.Name,
                 Items=i.Items.Select(i=> new ItemDto
                 {
+                    Id=i.Id,
                     Name=i.Name,
                     Price=i.Price,
                     Quantity=i.Quantity
@@ -59,17 +60,19 @@ namespace StockBLL.Managers.StoreManager
         }
         public ReadStoreWithItemsDto GetReadStoreDtoWithItemsById(int id)
         {
-            var store = unitOfWork.StoreRepo.GetById(id);
-            if (store == null)
+            var getAllStores = unitOfWork.StoreRepo.GetStoresIncludeAllItems();
+            var getStore = getAllStores.FirstOrDefault(i => i.Id == id);
+            if (getStore == null)
                 return null!;
 
             return new ReadStoreWithItemsDto
             {
-                Name = store.Name,
-                Address = store.Address,
-                Items = store.Items.Select(i=> new ItemDto
+                Name = getStore.Name,
+                Address = getStore.Address,
+                Items = getStore.Items.Select(i=> new ItemDto
                 {
-                    Name=i.Name,
+                    Id= i.Id,
+                    Name =i.Name,
                     Price=i.Price,
                 }).ToList(),
             };
@@ -83,11 +86,12 @@ namespace StockBLL.Managers.StoreManager
 
             return new StoreDto
             {
+                Id=store.Id,
                 Name=store.Name,
                 Address=store.Address,
             };
         }
-        public int AddStoreDto(StoreDto storeDto)
+        public int AddStoreDto(AddStoreDto storeDto)
         {
             if(storeDto == null)
                 return 0;

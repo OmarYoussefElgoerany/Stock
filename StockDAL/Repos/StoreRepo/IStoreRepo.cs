@@ -9,5 +9,6 @@ namespace StockDAL.Repos.StoreRepo
 {
     public interface IStoreRepo:IGenericRepo<Store>
     {
+        List<Store> GetStoresIncludeAllItems();
     }
 }

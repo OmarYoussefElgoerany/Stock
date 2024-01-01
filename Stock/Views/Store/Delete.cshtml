@@ -1,0 +1,23 @@
+﻿@model StoreDto
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete Store</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+
+<form asp-action="Delete">      
+    <div>
+        <input hidden  asp-for="Id" value="@Model.Id" />
+              <label class="fw-bold" asp-for="Name">Name:</label>
+        <input readonly   asp-for="Name" value="@Model.Name" />
+              <label asp-for="Address">Address:</label>
+        <input readonly  asp-for="Address" value="@Model.Address" />
+        </div>
+        <div class="m-3">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a class="btn btn-danger" asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

@@ -17,7 +17,7 @@ namespace StockBLL.Managers.StoreManager
         StoreDto GetStoreDtoById(int id);
 
         ReadStoreWithItemsDto GetReadStoreDtoWithItemsById(int id);
-        int AddStoreDto(StoreDto storeDto);
+        int AddStoreDto(AddStoreDto storeDto);
 
         bool IsUpdated(UpdateStoreDto updateStoreDto);
 

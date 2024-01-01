@@ -11,7 +11,7 @@ namespace StockBLL.Mapping
 {
     public static class MappingStoreDtos
     {
-        public static Store FromStoreDtoToStore(StoreDto storeDto)
+        public static Store FromStoreDtoToStore(AddStoreDto storeDto)
         {
             Store store = new Store();
             store.Name = storeDto.Name;

@@ -1,0 +1,52 @@
+﻿@model ReadStoreWithItemsDto
+@{
+    ViewData["Title"] = "Details";
+   // SelectList selectListItems = new SelectList(@ViewBag.stores,"Id","Name");
+}
+
+<h2>Store @Model.Name Details</h2>
+
+
+<div class="container mt-3">
+  <form asp-controller="Store" asp-action="Create" method="post">
+    <div class="mb-3 mt-3">
+      <label class="fw-bold" asp-for="Name"></label>
+      <input asp-for="Name" class="form-control" readonly  value="@Model.Name" >
+    </div>
+    <div class="mb-3">
+      <label asp-for="Items">Items:</label>
+      <select class="form-select" id="items" onchange="GetItem()">
+                 <option selected>Select Item</option>
+                @foreach (var item in Model.Items)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+      </select>
+    </div>
+@*      <input asp-for="Items" class="form-control" readonly  value="@Model.Name" >
+ *@    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
+
+  </form>
+</div>
+
+@section Scripts{
+    <script>
+        function GetItem() {
+        let Id = document.getElementById("items").value;
+        console.log(Id); 
+
+        $.ajax({
+            url: "/Item/GetItems",
+            data: { "Id": Id }, 
+            success: function(result) {
+                //$("#div1").html(result);
+                console.log(result);
+            }
+        });
+    }
+
+
+    </script>
+            <partial name="_ValidationScriptsPartial" />
+}

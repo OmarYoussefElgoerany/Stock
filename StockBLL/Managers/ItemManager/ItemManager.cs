@@ -33,14 +33,15 @@ namespace StockBLL.Managers.ItemManager
             }).ToList() ;
         }
 
-        public ItemDto GetItemDtoById(int id)
+        public ReadItemDto GetItemDtoById(int id)
         {
             var item = unitOfWork.ItemRepo.GetById(id);
             if(item == null)
                 return null!;
 
-            return new ItemDto
+            return new ReadItemDto
             {
+                Id=item.Id,
                 Price = item.Price,
                 Quantity = item.Quantity,
                 Name = item.Name

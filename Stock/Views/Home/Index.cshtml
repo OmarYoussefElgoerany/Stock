@@ -26,7 +26,7 @@
                <tr>
                 <td>@item.Name</td>
                 <td>@item.Address</td>
-                <td><a class="btn btn-primary" asp-controller="Store" asp-action="Index" asp-route-id="@item.Id">Details</a></td>
+                    <td><a class="btn btn-primary" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id">Details</a></td>
                 <td class="text-center"><a class="btn btn-primary" asp-controller="Store" asp-action="Edit" asp-route-id="@item.Id">Edit</a></td>
                 <td class="text-center"><a asp-controller="Store" asp-action="Delete" asp-route-id="@item.Id"
                 onclick="return confirm('Are you sure ?')" class="btn btn-primary">Delete</a> </td>

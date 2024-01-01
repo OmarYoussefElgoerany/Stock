@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Stock.Models;
 using StockBLL.Managers.ItemManager;
 using StockBLL.Managers.StoreManager;
+using StockDAL;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace Stock.Controllers
@@ -24,7 +27,7 @@ namespace Stock.Controllers
         public IActionResult Index()
         {
             var stores = storeManager.GetAllStoreDto();
-
+            
             return View(stores);
         }
 

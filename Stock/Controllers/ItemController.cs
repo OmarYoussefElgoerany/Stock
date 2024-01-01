@@ -11,9 +11,17 @@ namespace Stock.Controllers
         {
             this.itemManager = itemManager;
         }
+
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetItems(int Id)
+        {
+            var items = itemManager.GetItemDtoById(Id);
+            return Json(items);
         }
     }
 }
