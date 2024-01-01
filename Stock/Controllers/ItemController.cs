@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockBLL.Managers.ItemManager;
 using StockBLL.Managers.StoreManager;
+using StockBLL.ViewModel;
 
 namespace Stock.Controllers
 {
@@ -22,6 +23,16 @@ namespace Stock.Controllers
         {
             var items = itemManager.GetItemDtoById(Id);
             return Json(items);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateQuan(StoreDetails storeDetails)
+        {
+            if (storeDetails == null)
+                return RedirectToAction("Index", "Home");
+
+            var itemUpdated = itemManager.UpdatedQuantity(storeDetails);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

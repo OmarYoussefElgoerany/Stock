@@ -1,5 +1,6 @@
 ﻿using StockBLL.Dtos.ItemDto;
 using StockBLL.Mapping;
+using StockBLL.ViewModel;
 using StockDAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -33,13 +34,13 @@ namespace StockBLL.Managers.ItemManager
             }).ToList() ;
         }
 
-        public ReadItemDto GetItemDtoById(int id)
+        public ItemDto GetItemDtoById(int id)
         {
             var item = unitOfWork.ItemRepo.GetById(id);
             if(item == null)
                 return null!;
 
-            return new ReadItemDto
+            return new ItemDto
             {
                 Id=item.Id,
                 Price = item.Price,
@@ -90,6 +91,20 @@ namespace StockBLL.Managers.ItemManager
             unitOfWork.SaveChanges();
             return true;
         }
-      
+
+        public bool UpdatedQuantity(StoreDetails storeDetails)
+        {
+            if (storeDetails == null)
+                return false;
+
+            var getItem = unitOfWork.ItemRepo.GetById(storeDetails.item_Id);
+            if (getItem == null)
+                return false;
+            
+            getItem.Quantity = storeDetails.Quantity;
+            unitOfWork.ItemRepo.Update(getItem);
+            unitOfWork.SaveChanges();
+            return true;
+        }
     }
 }

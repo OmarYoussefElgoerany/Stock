@@ -1,4 +1,6 @@
 ﻿using StockBLL.Dtos.ItemDto;
+using StockBLL.ViewModel;
+using StockDAL.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,10 @@ namespace StockBLL.Managers.ItemManager
     {
         List<ItemDto> GetAllItemDto();
 
-        ReadItemDto GetItemDtoById(int id);
+        ItemDto GetItemDtoById(int id);
 
         int AddItemDto(ItemDto itemDto);
+        bool UpdatedQuantity(StoreDetails storeDetails);
 
         bool IsUpdated(UpdateItemDto updateItemDto);
 

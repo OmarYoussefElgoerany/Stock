@@ -8,14 +8,14 @@
 
 
 <div class="container mt-3">
-  <form asp-controller="Store" asp-action="Create" method="post">
+  <form asp-controller="Item" asp-action="UpdateQuan" method="post">
     <div class="mb-3 mt-3">
       <label class="fw-bold" asp-for="Name"></label>
       <input asp-for="Name" class="form-control" readonly  value="@Model.Name" >
     </div>
     <div class="mb-3">
       <label asp-for="Items">Items:</label>
-      <select class="form-select" id="items" onchange="GetItem()">
+      <select class="form-select" name="item_Id" id="items" onchange="GetItem()">
                  <option selected>Select Item</option>
                 @foreach (var item in Model.Items)
                 {
@@ -23,8 +23,19 @@
                 }
       </select>
     </div>
-@*      <input asp-for="Items" class="form-control" readonly  value="@Model.Name" >
- *@    <button type="submit" class="btn btn-primary">Submit</button>
+    <div>
+       <label>Price:</label>
+      <input readonly  class="form-control" type="number"  id="price" >
+    </div>
+    <div>
+       <label>Quantity:</label>
+      <input oninput="calcBalance()" name="Quantity" class="form-control" type="number"  id="inputQuantity" >
+    </div>
+    <div>
+       <label>Balance:</label>
+      <input readonly  class="form-control" type="number"  id="balance" >
+    </div>
+     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
 
   </form>
@@ -32,19 +43,42 @@
 
 @section Scripts{
     <script>
+        // GET THE QUANTITY OF ITEM BY AJAX CALL
         function GetItem() {
         let Id = document.getElementById("items").value;
         console.log(Id); 
-
         $.ajax({
             url: "/Item/GetItems",
             data: { "Id": Id }, 
             success: function(result) {
-                //$("#div1").html(result);
-                console.log(result);
+            let inputField = document.getElementById("inputQuantity");
+            let inputPrice = document.getElementById("price");
+            inputField.value = result.quantity;
+            inputPrice.value = result.price;
+
+            calcBalance();
             }
         });
     }
+
+    // Calculate The BALANCE BY AJAX CALL
+            function calcBalance() {
+            let Id = document.getElementById("items").value;
+            let getQuntity = document.getElementById("inputQuantity").value;
+            let quantityAsNumber =  parseInt(getQuntity);
+                    $.ajax({
+                           url: "/Item/GetItems",
+                           data: { "Id": Id }, 
+                           success: function(result) {
+                           console.log(result);                     
+                           let calulatedPrice = quantityAsNumber * result.price;
+                           let inputField = document.getElementById("balance");
+                           inputField.value = calulatedPrice
+                           }
+                         });
+           
+        }
+
 
 
     </script>

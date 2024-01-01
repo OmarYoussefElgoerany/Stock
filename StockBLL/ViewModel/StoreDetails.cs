@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockBLL.Dtos.ItemDto
+namespace StockBLL.ViewModel
 {
-    public class ReadItemDto
+    public class StoreDetails
     {
-        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public decimal Price { get; set; }
+        public int item_Id { get; set; }
         public int Quantity { get; set; }
+
     }
 }

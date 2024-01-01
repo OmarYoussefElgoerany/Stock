@@ -25,7 +25,6 @@ namespace Stock.Controllers
         {
             var store =storeManager.GetReadStoreDtoWithItemsById(id);
             ViewBag.stores = store.Items; 
-            //ViewBag.getItem=itemManger.
             return View(store);
         }
 
