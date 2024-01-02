@@ -11,8 +11,8 @@ using StockDAL;
 namespace StockDAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231230231440_intial")]
-    partial class intial
+    [Migration("20240102011319_intialWithSeeding")]
+    partial class intialWithSeeding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,40 @@ namespace StockDAL.Migrations
                     b.HasIndex("StoreId");
 
                     b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "TV",
+                            Price = 200m,
+                            Quantity = 50,
+                            StoreId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Mobile",
+                            Price = 150m,
+                            Quantity = 100,
+                            StoreId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Tablet",
+                            Price = 200m,
+                            Quantity = 50,
+                            StoreId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Microwave",
+                            Price = 180m,
+                            Quantity = 30,
+                            StoreId = 1
+                        });
                 });
 
             modelBuilder.Entity("StockDAL.Store", b =>
@@ -73,6 +107,20 @@ namespace StockDAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stores");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "PO Box 11621",
+                            Name = "Tech Oasis"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "PO Box 29634",
+                            Name = "E-Store Express"
+                        });
                 });
 
             modelBuilder.Entity("StockDAL.Data.Models.Item", b =>
