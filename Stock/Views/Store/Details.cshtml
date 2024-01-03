@@ -1,35 +1,33 @@
-﻿@model ReadStoreWithItemsDto
+﻿@model List<ReadStoreWithItemsDto>
 @{
     ViewData["Title"] = "Details";
    // SelectList selectListItems = new SelectList(@ViewBag.stores,"Id","Name");
 }
 
-<h2>Store @Model.Name Details</h2>
+<h2>Store Details</h2>
 
 
 <div class="container mt-3">
   <form asp-controller="Item" asp-action="UpdateQuan" method="post">
     <div class="mb-3 mt-3">
-      <label class="fw-bold" asp-for="Name"></label>
-      <input asp-for="Name" class="form-control" readonly  value="@Model.Name" >
-    </div>
-    <div class="mb-3">
-      <label asp-for="Items">Items:</label>
-      <select class="form-select" name="item_Id" id="items" onchange="GetItem()">
+      <label class="fw-bold">Choose Store</label>
+          <select class="form-select" name="Id" id="store" onchange="getValue()">
                  <option selected>Select Item</option>
-                @foreach (var item in Model.Items)
+                @foreach (var item in Model)
                 {
-                    <option value="@item.Id">@item.Name</option>
+                        <option value="@item.Id">@item.Name</option>
                 }
       </select>
     </div>
-    <div>
-       <label>Price:</label>
-      <input readonly  class="form-control" type="number"  id="price" >
+    <div class="mb-3">
+      <label>Items:</label>
+      <select class="form-select"  name="item_Id" id="items" onchange="GetQuantity()">
+                 <option selected>Select Item</option>
+      </select>
     </div>
     <div>
        <label>Quantity:</label>
-      <input oninput="calcBalance()" name="Quantity" type="number" class="form-control" type="number"  id="inputQuantity" >
+      <input name="Quantity"  oninput="SetBalance()" type="number" class="form-control" type="number"  id="inputQuantity" >
     </div>
     <div>
        <label>Balance:</label>
@@ -46,44 +44,65 @@
 
 @section Scripts{
     <script>
-        // GET THE QUANTITY OF ITEM BY AJAX CALL
-        function GetItem() {
-        let Id = document.getElementById("items").value;
-        console.log(Id); 
-        $.ajax({
-            url: "/Item/GetItems",
-            data: { "Id": Id }, 
-            success: function(result) {
-            let inputField = document.getElementById("inputQuantity");
-            let inputPrice = document.getElementById("price");
-            inputField.value = result.quantity;
-            inputPrice.value = result.price;
 
-            calcBalance();
-            }
-        });
-    }
-
-    // Calculate The BALANCE BY AJAX CALL
-            function calcBalance() {
-            let Id = document.getElementById("items").value;
-            let getQuntity = document.getElementById("inputQuantity").value;
-            let quantityAsNumber =  parseInt(getQuntity);
-                    $.ajax({
-                           url: "/Item/GetItems",
-                           data: { "Id": Id }, 
-                           success: function(result) {
-                           console.log(result);                     
-                           let calulatedPrice = quantityAsNumber * result.price;
-                           let inputField = document.getElementById("balance");
-                           inputField.value = calulatedPrice
-                           }
-                         });
-           
+        //GetID Of Store
+         function getValue() {
+         var dropdown = document.getElementById("store");
+         var Id = dropdown.value;
+          console.log(Id)
+             $.ajax({
+                url: "/Item/GetItems",
+                data: { "Id": Id }, 
+                success: function(items) {
+                populateDropdown(items)
+               }
+            });
         }
 
+        //Fill The Dropdown list with Store Items
+        function populateDropdown(items) {
+            console.log(items)
+                   let dropdown = document.getElementById("items");
+                   dropdown.innerHTML = "";
+                   let defaultOption = document.createElement("option");
+                   defaultOption.text = "Select item";
+                   dropdown.appendChild(defaultOption);
+                     items.forEach(function(item) {
+                     var option = document.createElement("option");
+                     option.value = item.id;
+                     option.text = item.name;
+                     dropdown.appendChild(option);
+                   });
+                 }
+        //Get Quantity of specifc item
+          function GetQuantity() {
+              let dropdown = document.getElementById("items");
+              let selectedIndex = dropdown.selectedIndex;
 
+              if (selectedIndex !== -1) {
+                let selectedOption = dropdown.options[selectedIndex];
+                let Id = selectedOption.value;
+                      $.ajax({
+                           url: "/Item/GetItemsDetials",
+                           data: { "Id": Id }, 
+                           success: function(item) {
+                           let inputField = document.getElementById("inputQuantity");
+                           inputField.value =item.quantity;
+                           let balanceField = document.getElementById("balance");
+                            balanceField.value = item.quantity
+                       }
+                      });
+                  }
+             }
 
+             //set the value of balance
+                function SetBalance(){
+                   let quantityField = document.getElementById("inputQuantity");
+                   let balanceField = document.getElementById("balance");
+                        balanceField.value = quantityField.value;
+                }
+   
     </script>
             <partial name="_ValidationScriptsPartial" />
 }
+

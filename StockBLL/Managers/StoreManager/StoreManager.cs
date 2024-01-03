@@ -46,6 +46,7 @@ namespace StockBLL.Managers.StoreManager
 
             return allStores.Select(i => new ReadStoreWithItemsDto
             {
+                Id=i.Id,
                 Address = i.Address,
                 Name = i.Name,
                 Items=i.Items.Select(i=> new ItemDto

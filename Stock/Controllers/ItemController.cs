@@ -29,6 +29,18 @@ namespace Stock.Controllers
             return View(itemsInStore);
         }
         [HttpGet]
+        public IActionResult GetItems(int Id)
+        {
+            var items = itemManager.GetItemDtoByStoreId(Id);
+            return Json(items);
+        }
+        [HttpGet]
+        public IActionResult GetItemsDetials(int Id)
+        {
+            var items = itemManager.GetItemDtoById(Id);
+            return Json(items);
+        }
+        [HttpGet]
         public IActionResult Create(int id)
         {
             ViewBag.StoreId = id;
@@ -60,12 +72,7 @@ namespace Stock.Controllers
 
             return RedirectToAction("Details", "Item", new { id = item.Id });
         }
-        [HttpGet]
-        public IActionResult GetItems(int Id)
-        {
-            var items = itemManager.GetItemDtoById(Id);
-            return Json(items);
-        }
+    
 
         [HttpPost]
         public IActionResult UpdateQuan(StoreDetails storeDetails)

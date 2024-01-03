@@ -19,12 +19,13 @@ namespace Stock.Controllers
         {
             return View();
         }
+
         [HttpGet]
-        public IActionResult Details(int id)
+        public IActionResult Details()
         {
-            var store =storeManager.GetReadStoreDtoWithItemsById(id);
-            ViewBag.stores = store.Items; 
-            return View(store);
+            var stores = storeManager.GetAllStoreDtoWithItems();
+
+            return View(stores);
         }
 
         [HttpGet]

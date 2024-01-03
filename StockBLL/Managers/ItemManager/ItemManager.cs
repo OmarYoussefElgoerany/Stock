@@ -108,19 +108,20 @@ namespace StockBLL
             return true;
         }
 
-        public ItemDto GetItemDtoByStoreId(int id)
+        public List<ItemDto> GetItemDtoByStoreId(int id)
         {
-            var items = unitOfWork.ItemRepo.GetAll();
-            var getItemByStore=items.FirstOrDefault(i=>i.StoreId==id);
-            if (getItemByStore == null)
-                return new ItemDto();
-            return new ItemDto
+            var allItems = unitOfWork.ItemRepo.GetAll();
+            var items = allItems.Where(i => i.StoreId == id);
+            if (items == null)
+                return new List<ItemDto>();
+            return items.Select(i => new ItemDto
             {
-                Id = getItemByStore.Id,
-                Name = getItemByStore.Name,
-                Price = getItemByStore.Price,
-                Quantity = getItemByStore.Quantity
-            };
+                Id=i.Id,
+                Name=i.Name,
+                Price=i.Price,
+                Quantity=i.Quantity,
+                StoreId=i.StoreId,
+            }).ToList();
         }
     }
 }

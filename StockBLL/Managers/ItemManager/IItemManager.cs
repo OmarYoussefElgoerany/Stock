@@ -14,7 +14,7 @@ namespace StockBLL.Managers.ItemManager
         List<ItemDto> GetAllItemDto();
 
         ItemDto GetItemDtoById(int id);
-        ItemDto GetItemDtoByStoreId(int id);
+        List<ItemDto> GetItemDtoByStoreId(int id);
         int AddItemDto(AddItemDto itemDto);
         bool UpdatedQuantity(StoreDetails storeDetails);
 
